@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import {
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
 import User from '../User/user'
 import PrivateRoute from '../../utils/PrivateRoute';
 import './travel.css'
 import { ROUTES } from '../../Routes.constants';
 import Admin from '../Admin/admin';
-import landingPage from '../lnding';
+import LandingPage from '../lnding';
 
 class MainFrame extends Component {
   render() {
@@ -19,7 +20,8 @@ class MainFrame extends Component {
           <Routes>
             <Route path={ROUTES.USER} element={<User />} />
             <Route path={ROUTES.ADMIN} element={<Admin />} />
-            <Route path={ROUTES.INDEX} element={<landingPage />} />
+            <Route path={ROUTES.INDEX} element={<LandingPage />} />
+            {/* <Route path ="*" element={<Navigate to ="/"/>}/> */}
           </Routes>
         </div>
       </Fragment>

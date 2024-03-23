@@ -14,9 +14,3 @@ export default class InputButton extends Component {
     )
   }
 }
-// InputField.Prototype = {
-//   className: PropType.string,
-//   type: PropType.string,
-//   placeholder: PropType.string,
-//   value: PropType.string,
-// };

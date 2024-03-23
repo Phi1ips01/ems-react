@@ -71,6 +71,7 @@ export class APIInstance {
             }
             const token = localStorage.getItem(KEYS.ACCESS_TOKEN);
             if (token) {
+                // config.headers['Authorization'] = `K3fcvhg42lmm3o4?nf3`;
                 config.headers['Authorization'] = `${token}`;
             }
 

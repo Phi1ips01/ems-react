@@ -21,9 +21,3 @@
       )
     }
   }
-  // InputField.Prototype = {
-  //   className: PropType.string,
-  //   type: PropType.string,
-  //   placeholder: PropType.string,
-  //   value: PropType.string,
-  // };

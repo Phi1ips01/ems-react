@@ -24,16 +24,20 @@ export const showAllAdmin = () => {
     return api.get()        
 };
 
-export const addAdmin = (payload) =>{
+export const addAdmin = async (payload) => {
     console.log("payload",payload)
-    return postApi.post(postApi.baseURL,payload)
+    const response =await postApi.post(postApi.baseURL,payload)
+    console.log("payload response",response)
+    return response
 }
 
 export const deleteAdmin = (payload) => {
     console.log("payload",payload)
-    return deleteApi.delete(deleteApi.baseURL, { data: payload })
+    return deleteApi.delete(deleteApi.baseURL, {data: payload })
 }
 
-export const updateAdmin = (payload)=>{
-    return updateApi.put(updateApi.baseURL,payload)
+export const updateAdmin = async (payload)=>{
+    const response = await updateApi.put(updateApi.baseURL,payload)
+    console.log("admin api update", response.data.response)
+    return response.data.response
 }
