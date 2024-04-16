@@ -1,24 +1,21 @@
+import { useAPI } from './apiInstance'; 
 
-import { APIInstance } from './apiInstance';
-
-export const instance = new APIInstance({
-    baseURL: 'user/show'
-});
-
-export const updateInstance = new APIInstance({
-    baseURL: 'user/update'
-})
-
-
-const api = instance.api;
-
-const updateApi = updateInstance.api
-
-
-export const showUser = () => {
-    return api.get()        
+const UserAPI = () => {
+    const { api } = useAPI();
+    console.log("api");
+    const showOneUser = async (payload) => {
+        console.log("Userapi",payload);
+        const response = await api.get(`user/show?userId=${payload}`);
+        return response
+    };
+    const updateUser =async (UserData) => {
+        return await api.put('user/update', UserData);
     };
 
-export const updateUser = (payload)=>{
-    return updateApi.put(updateApi.baseURL,payload)
-}
+    return {
+        updateUser,
+        showOneUser
+    };
+};
+
+export default UserAPI;

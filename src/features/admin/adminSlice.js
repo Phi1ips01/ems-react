@@ -1,35 +1,41 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {addAdmin,deleteAdmin,showAllAdmin,updateAdmin} from '../../api/adminApi'
+import AdminAPI from '../../api/adminApi'
 
 const initialState = {
     showAllAdminData:[],
+    showOneAdminData:[],
     addedUserData:[],
     deletedUserData:[],
     updatedUserData:[],
-    status: 'idle',
+    showAllStatus:'idle',
+    showOneStatus: 'idle',
     error: null,
     userId:'',
 
 }
-
+export const showAdminThunk = createAsyncThunk('admin/show', async (payload) => {
+  const response = await AdminAPI().showOneAdmin(payload);
+  console.log("userslice ",response)
+    return response.data.response;
+  });
 export const showAllUsersThunk = createAsyncThunk('admin/showall', async () => {
-    const response = await showAllAdmin();
-    return response.data;
+    const response = await AdminAPI().showAllAdmin();
+    return response.data.response;
   });
 
 export const addNewUserThunk = createAsyncThunk('admin/add', async (payload) => {
-  const response = await addAdmin(payload);
+  const response = await AdminAPI().addAdmin(payload);
   console.log("successfully added thunk",response.data.response)
   showAllUsersThunk()
   return response.data.response;
 });
 export const deleteUserThunk = createAsyncThunk('admin/delete',async(userId)=>{
-  deleteAdmin(userId)
-  showAllUsersThunk()
+  AdminAPI().deleteAdmin(userId)
+  AdminAPI().showAllUsersThunk()
   return userId
 })
 export const updateUserThunk = createAsyncThunk('admin/update',async(payload)=>{
-  const response = updateAdmin(payload)
+  const response = AdminAPI().updateAdmin(payload)
   console.log("thi]unk",response)
   return response
 
@@ -40,9 +46,19 @@ const adminSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    .addCase(showAllUsersThunk.pending, (state, action) => {
+      state.showAllStatus = 'loading';
+    })
       .addCase(showAllUsersThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.showAllAdminData = action.payload.response;
+        state.showAllStatus = 'succeeded';
+        state.showAllAdminData = action.payload;
+      })
+      .addCase(showAdminThunk.pending, (state, action) => {
+        state.showOneStatus = 'loading';
+      })
+      .addCase(showAdminThunk.fulfilled, (state, action) => {
+        state.showOneStatus = 'succeeded';
+        state.showOneAdminData = action.payload;
       })
       .addCase(addNewUserThunk.fulfilled, (state, action) => {
         state.status = 'succeeded';

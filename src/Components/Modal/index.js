@@ -17,7 +17,7 @@ const MyModal = ({ show, handleClose, onSubmit, selectedUser}) => {
               <InputField type="text" id="password" name="password" className="trip-form-input" placeholder={`password =`}/>
               <InputField type="text" id="role" name="role" className="trip-form-input" placeholder={`name = ${selectedUser && selectedUser.role}`}/>
               <InputField type="text" id="contact" name="contact" className="trip-form-input" placeholder={`name = ${selectedUser && selectedUser.contact}`}/>
-                        
+              <InputField type="text" id="leave" name="leave" className="trip-form-input" placeholder={`leave = ${selectedUser && selectedUser.leave}`}/>
               <input type="submit" value="Update" onClick={handleClose}/>
             </form>
       </Modal.Body>

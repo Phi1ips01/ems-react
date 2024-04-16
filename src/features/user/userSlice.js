@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {showUser,updateUser} from '../../api/userAPI'
+import UserAPI from '../../api/userAPI'
 
 const initialState = {
     showUserData:[],
@@ -10,9 +10,10 @@ const initialState = {
 
 }
 
-export const showUserThunk = createAsyncThunk('user/show', async () => {
-    const response = await showUser();
-    return response.data;
+export const showUserThunk = createAsyncThunk('user/show', async (payload) => {
+  const response = await UserAPI().showOneUser(payload);
+  console.log("userslice ",response)
+    return response.data.response;
   });
 
 const userSlice = createSlice({
@@ -23,7 +24,7 @@ const userSlice = createSlice({
     builder
       .addCase(showUserThunk.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.showUserData = action.payload.response;
+        state.showUserData = action.payload;
       })
   },
 });

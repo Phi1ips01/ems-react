@@ -1,43 +1,39 @@
+import { useAPI } from './apiInstance'; 
 
-import { APIInstance } from './apiInstance';
-
-export const instance = new APIInstance({
-    baseURL: 'admin/showall'
-});
-
-export const updateInstance = new APIInstance({
-    baseURL: 'admin/update'
-})
-export const postInstance = new APIInstance({
-    baseURL: 'admin/add'
-});
-export const deleteInstance = new APIInstance({
-    baseURL: 'admin/delete'
-})
-
-const api = instance.api;
-const postApi = postInstance.api
-const deleteApi = deleteInstance.api
-const updateApi = updateInstance.api
-
-export const showAllAdmin = () => {
-    return api.get()        
-};
-
-export const addAdmin = async (payload) => {
-    console.log("payload",payload)
-    const response =await postApi.post(postApi.baseURL,payload)
-    console.log("payload response",response)
-    return response
+const AdminAPI = () => {
+    const { api } = useAPI();
+    console.log("api");
+    const showAllAdmin = async() => {
+        return await api.get('admin/showall')        
+    };
+    const showOneAdmin = async (payload) => {
+        console.log("Userapi",payload);
+        const response = await api.get(`admin/showOne?userId=${payload}`);
+        return response
+    };
+    const updateAdmin = async(payload)=>{
+        const response = await api.put('admin/update',payload)
+        console.log("admin api update", response.data.response)
+        return response
+    }
+    const addAdmin = async (payload) => {
+        console.log("payload",payload)
+        const response =await api.post('admin/add',payload)
+        console.log("payload response",response)
+        return response
+    }
+    const deleteAdmin = (payload) => {
+        console.log("payload",payload)
+        return api.delete('admin/delete', {data: payload })
+    }
+    return {
+        showAllAdmin,
+        updateAdmin,
+        addAdmin,
+        deleteAdmin,
+        showOneAdmin
+    };
 }
 
-export const deleteAdmin = (payload) => {
-    console.log("payload",payload)
-    return deleteApi.delete(deleteApi.baseURL, {data: payload })
-}
 
-export const updateAdmin = async (payload)=>{
-    const response = await updateApi.put(updateApi.baseURL,payload)
-    console.log("admin api update", response.data.response)
-    return response.data.response
-}
+export default AdminAPI;

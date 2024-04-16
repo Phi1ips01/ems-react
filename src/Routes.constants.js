@@ -3,5 +3,6 @@ export const ROUTES = {
   USER: '/user',
   INDEX: '/',
   ADMIN:'/admin',
-  ADMIN_HOME:'/admin/home'
+  ADMIN_HOME:'/admin/home',
+  UNAUTHORIZED:"/unauthorized"
 };

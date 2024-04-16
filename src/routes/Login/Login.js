@@ -1,81 +1,94 @@
-import React, { Component } from 'react';
-import PropType from 'prop-types';
+import React from "react";
+// import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { signIn } from "../../features/login/loginSlice";
+import { Navigate, useNavigate } from "react-router-dom";
+import { ROUTES } from "../../Routes.constants";
+import "./login.css";
 
-import Form from './Form';
-
-import { isValid } from '../../utils/formValidator';
-
-import { HEADINGS } from '../../constants';
-import { ROUTES } from '../../Routes.constants';
-import { FORM_FIELDS } from './Login.config';
-
-
-
-export default class LoginPage extends Component {
-    state = {
-        email: {
-            value: '',
-            error: ''
-        },
-        password: {
-            value: '',
-            error: ''
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        const { loading, error } = this.props;
-        if (prevProps.loading && !loading && !error) {
-            this.props.history.push(ROUTES.HOME);
-        }
-        if (prevProps.loading && !loading && error) {
-            /* replace with approp component to show error */
-            // eslint-disable-next-line no-alert
-            alert(error);
-        }
-    }
-
-    inputChange = async (e) => {
-        const { name, value } = e.target;
-        const data = await isValid({ fields: FORM_FIELDS, key: name, value });
-        this.setState({
-            [e.target.name]: {
-                value,
-                error: data.error || null
-            }
+const LoginPage = () => {
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: yup.object({
+      email: yup
+        .string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: yup.string().required("Password is required"),
+    }),
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+      try {
+        await dispatch(
+          signIn({ email: values.email, password: values.password })
+        ).then(() => {
+          if (isAdmin !== null) {
+            console.log("useEffect ",isAdmin);
+            navigate(isAdmin ? ROUTES.ADMIN : ROUTES.USER);
+          }
         });
-    };
+      } catch (error) {
+        setFieldError("password", "Invalid email or password");
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+  if (isAdmin !== null) {
+    return <Navigate to={isAdmin ? ROUTES.ADMIN : ROUTES.USER} replace />;
+  }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const { signIn } = this.props;
-        signIn({ email: e.target.email.value, password: e.target.password.value })
-    };
-
-    render() {
-        const { loading } = this.props;
-        return (
-            <section className="loginWrapper">
-                <div className="login">
-                    <div className="login__header">
-                        <h2>{HEADINGS.LOGIN_HERE}</h2>
-                    </div>
-                    <div className="login__forms">
-                        <Form
-                            {...this.state}
-                            inputChange={this.inputChange}
-                            onSubmit={this.handleSubmit}
-                            loading={loading}
-                        />
-                    </div>
-                </div>
-            </section>
-        );
-    }
-}
-LoginPage.PropType = {
-    className: PropType.string,
-    value: PropType.string,
-    emailError: PropType.string,
-    type: PropType.string,
+  return (
+    <section className="login-wrapper">
+      <div className="login">
+        <div className="login__header">
+          <h2>Login</h2>
+        </div>
+        <div className="login__forms">
+          <form onSubmit={formik.handleSubmit} className="login__form">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="login__input"
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className="login__error">{formik.errors.email}</div>
+            )}
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="login__input"
+            />
+            {formik.touched.password && formik.errors.password && (
+              <div className="login__error">{formik.errors.password}</div>
+            )}
+            <button
+              type="submit"
+              disabled={formik.isSubmitting}
+              className="login__button"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 };
+
+export default LoginPage;
