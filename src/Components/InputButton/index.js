@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-// import PropType from 'prop-types';
+import React from "react";
 
-export default class InputButton extends Component {
-  render() {
-    return (
+const InputButton = ({ value, className, onSubmit }) => {
+  return (
+    <input
+      type="submit"
+      value={value}
+      className={className}
+      onSubmit={onSubmit}
+    />
+  );
+};
 
-        <input
-          type="submit"
-          value={this.props.value}
-          className={this.props.className}
-          onSubmit={this.props.onSubmit}
-        />
-    )
-  }
-}
+export default InputButton;

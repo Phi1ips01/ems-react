@@ -5,8 +5,8 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
-  isAdmin: null,
-  userId: null,
+  isAdmin: JSON.parse(localStorage.getItem(KEYS.IS_ADMIN)) || null,
+  userId: localStorage.getItem(KEYS.ID) || null,
 };
 
 export const signIn = createAsyncThunk("auth/signIn", async (payload) => {
@@ -46,7 +46,6 @@ const loginSlice = createSlice({
         state.userId = action.payload.id;
         localStorage.setItem(KEYS.ID, action.payload.id);
         localStorage.setItem(KEYS.IS_ADMIN, action.payload.isAdmin);
-        console.log("user", state);
       })
       .addCase(signIn.rejected, (state, action) => {
         state.loading = false;
@@ -57,21 +56,7 @@ const loginSlice = createSlice({
         state.user = null;
         state.isAdmin = null;
         window.location.reload();
-      })
-      .addMatcher(
-        (action) => action.type.startsWith("@@INIT"),
-        (state) => {
-          const storedIsAdmin = localStorage.getItem(KEYS.IS_ADMIN);
-          const storedId = localStorage.getItem(KEYS.ID);
-          console.log("Stored isAdmin:", storedId);
-          if (storedIsAdmin) {
-            state.isAdmin = JSON.parse(storedIsAdmin);
-          }
-          if (!!storedId) {
-            state.userId = storedId;
-          }
-        }
-      );
+      });
   },
 });
 

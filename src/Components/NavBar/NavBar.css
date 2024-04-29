@@ -1,0 +1,66 @@
+.admin-navbar {
+  position: sticky;
+  top: 0;
+  width: 90%;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  height: 50px;
+}
+
+.admin-details {
+  display: flex;
+  align-items: center;
+}
+
+.qb-logo {
+  margin-right: auto; /* Push the logo to the left */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.admin-navbar-component,
+.admin-navbar-button {
+  font-size: 16px;
+  margin-left: 20px; /* Add some space between items */
+}
+
+.admin-navbar-button {
+  background-color: rgb(242, 5, 116);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-navbar-button:hover {
+  background-color: rgb(212, 2, 100);
+}
+
+.qb-logo-img {
+  max-width: 200px;
+}
+
+.admin-navbar-button {
+  display: flex;
+  align-items: center;
+}
+
+.logoutImage {
+  height: 36px;
+  width: auto;
+  max-height: 40px;
+}
+
+.logo-text {
+  margin-left: 5px;
+}

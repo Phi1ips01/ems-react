@@ -1,0 +1,56 @@
+.add-new-user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  padding: 30px;
+  width: 100%;
+  margin: 0;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.admin-add-form {
+  width: 100%;
+}
+
+.admin-add-input,
+.admin-add-select {
+  flex: 1;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  margin-right: 16px;
+  outline: none;
+  background: none;
+}
+
+.admin-add-select {
+  margin-right: 16px;
+}
+
+.admin-add-input:focus,
+.admin-add-select:focus {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.admin-add-submit {
+  align-self: center;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 36px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-add-submit:hover {
+  background-color: #0056b3;
+}

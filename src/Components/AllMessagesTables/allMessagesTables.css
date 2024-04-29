@@ -1,0 +1,65 @@
+.approve-button,
+.reject-button {
+  padding: 8px 16px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background: none;
+}
+
+.approve-button {
+  background-color: #28a745; /* green */
+  color: white;
+}
+
+.reject-button {
+  background-color: #dc3545; /* red */
+  color: white;
+}
+
+.approve-button:hover,
+.reject-button:hover {
+  opacity: 0.8;
+}
+
+.admin-message {
+  margin-bottom: 20px;
+}
+
+.admin-message-replied-table-container,
+.admin-message-pending-table-container {
+  max-height: 300px; /* Set maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.admin-message-pending-table,
+.admin-message-replied-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.admin-message-pending-table th,
+.admin-message-replied-table th,
+.admin-message-pending-table td,
+.admin-message-replied-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.admin-message p {
+  margin-bottom: 20px;
+}
+
+.all-messages-search-bar {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid blue;
+  background: none;
+  width: 240px;
+  padding: 8px;
+}

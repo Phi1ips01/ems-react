@@ -1,23 +1,31 @@
-  import React, { Component } from 'react';
-  // import PropType from 'prop-types';
+import React from "react";
 
-  export default class InputField extends Component {
-    render() {
-                {/* {this.props.required && <div className='asterisk'>*</div>} */}
+const InputField = ({
+  type,
+  placeholder,
+  name,
+  onChange,
+  id,
+  className,
+  value,
+  required,
+  disabled,
+  min,
+}) => {
+  return (
+    <input
+      type={type}
+      placeholder={`${placeholder}${required ? "*" : ""}`}
+      name={name}
+      onChange={onChange}
+      id={id}
+      className={className}
+      value={value}
+      required={required}
+      disabled={disabled}
+      min={min}
+    />
+  );
+};
 
-      return (
-          <input
-            type={this.props.type}
-            placeholder={`${this.props.placeholder}${!!this.props.required ? "*":""}`}
-            name={this.props.name}
-            onChange={this.props.onChange}
-            id={this.props.id}
-            className={this.props.className}
-            value={this.props.value}
-            required={this.props.required}
-            disabled={this.props.disabled}
-            min = {this.props.min}
-          />
-      )
-    }
-  }
+export default InputField;

@@ -1,5 +1,4 @@
 import React from "react";
-// import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -10,6 +9,7 @@ import "./login.css";
 
 const LoginPage = () => {
   const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const userId = useSelector((state) => state.auth.userId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -30,7 +30,7 @@ const LoginPage = () => {
           signIn({ email: values.email, password: values.password })
         ).then(() => {
           if (isAdmin !== null) {
-            console.log("useEffect ",isAdmin);
+            console.log("useEffect ", isAdmin);
             navigate(isAdmin ? ROUTES.ADMIN : ROUTES.USER);
           }
         });
@@ -41,6 +41,9 @@ const LoginPage = () => {
       }
     },
   });
+  if (!!userId) {
+    return <Navigate to={ROUTES.UNAUTHORIZED} />;
+  }
   if (isAdmin !== null) {
     return <Navigate to={isAdmin ? ROUTES.ADMIN : ROUTES.USER} replace />;
   }
