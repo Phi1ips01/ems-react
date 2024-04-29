@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Login from "../../api/login";
 import { KEYS } from "../../dataKeys";
+import { ROUTES } from "../../Routes.constants";
 const initialState = {
   user: null,
   loading: false,
@@ -23,6 +24,7 @@ export const signIn = createAsyncThunk("auth/signIn", async (payload) => {
 export const logOutUser = createAsyncThunk("auth/logOutUser", async () => {
   try {
     localStorage.clear();
+    window.location(ROUTES.LOGIN);
     return true;
   } catch (error) {
     throw error;
