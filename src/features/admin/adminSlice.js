@@ -77,7 +77,6 @@ export const showAllMessagesThunk = createAsyncThunk(
   "admin/showAllMessages",
   async (payload) => {
     const response = await AdminAPI().showAllMessagesApi(payload);
-    console.log("showAllMEssageData", response);
     return response.data.response;
   }
 );

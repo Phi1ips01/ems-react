@@ -9,7 +9,6 @@ const PrivateRoute = ({ children, role }) => {
 
   const isAuthorized = (role) => {
     if (role === "admin" && isAdmin) {
-      console.log("Admin");
       return true; // Authorized for admin if admin is true
     } else if (role === "user" && !isAdmin) {
       return true; // Authorized for user if admin is false
